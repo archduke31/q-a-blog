@@ -46,4 +46,8 @@ class User extends Authenticatable
         $this->attributes['title']=$value;
         $this->attributes['title']=Str::slug($value);
     }
+
+    public function getUrlAttribute(){
+        return '#';
+    }
 }
