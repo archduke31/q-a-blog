@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -25,18 +26,17 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        $question=new Question();
+
+        return view('questions.create',compact('question'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(QuestionRequest $questionRequest)
     {
-        //
+        $questionRequest->user()->questions()->create($questionRequest->only('title','body'));
+
+        return redirect()->route('questions.index')->with('success','Your question has been created');
     }
 
     /**
