@@ -41,4 +41,9 @@ class User extends Authenticatable
     public function questions(){
         return $this->hasMany(Queston::class);
     }
+
+    public function setTitleAttribute($value){
+        $this->attributes['title']=$value;
+        $this->attributes['title']=Str::slug($value);
+    }
 }
