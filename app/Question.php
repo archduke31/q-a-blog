@@ -29,9 +29,9 @@ class Question extends Model
     }
 
     public function getStatusAttribute(){
-        if($this->answers>0 && $this->best_answer_id){
+        if($this->answer_count>0 && $this->best_answer_id){
             return "answered-accepted";
-        }else if($this->answers>0){
+        }else if($this->answer_count>0){
             return "answered";
         }else{
             return "unanswered";
@@ -40,6 +40,9 @@ class Question extends Model
 
     public function getBodyHtmlAttribute(){
         return \Parsedown::instance()->text($this->body);
+    }
 
+    public function answers(){
+        return $this->hasMany(Answer::class);
     }
 }
